@@ -1,0 +1,70 @@
+# ==============================================================================
+# SpawnAuth Configuration
+# ==============================================================================
+
+# The world player returns to after authentication if their previous world is missing.
+worlds:
+  overworld: world
+
+# Where to move unauthenticated players (waiting spot before auth):
+#   vanilla  - leave/move the player at the server spawn of the overworld
+#   fixed    - move the player to the fixed spawn coordinates below
+#   disabled - do not move the player at all
+#
+# After authentication the player is always returned to the
+# location they had before being moved to the auth spawn.
+register:
+  spawn-mode: vanilla
+login:
+  spawn-mode: vanilla
+
+# Where to send the player in "fixed" mode.
+fixed:
+  # The world to use. Can be an existing world or one created by this plugin.
+  world: limbo
+
+  # If true, the void world is created automatically when it doesn't exist
+  # (overworld type, with a small barrier platform under the spawn point).
+  # If false and the world doesn't exist, the fixed mode is skipped.
+  create: false
+
+  # Exact spawn coordinates. Always used in "fixed" mode.
+  spawn:
+    x: 7.0
+    y: 70.0
+    z: 7.0
+    yaw: 0.0
+    pitch: 0.0
+
+  # Radius of the platform around the spawn in the auto-created void world.
+  platform-radius: 1
+
+# Storage settings:
+#   sqlite - high-performance server-side SQLite database (WAL mode enabled)
+#   mysql  - external MySQL/MariaDB database (HikariCP connection pool)
+#   none   - temporary in-memory cache only (requires cache: true)
+database:
+  type: sqlite
+
+  # Prefix used for table names in the database.
+  table-prefix: spawnauth
+
+  # Cache locations in memory on top of the storage backend.
+  # Highly recommended: guarantees instantaneous (0ms) location restoration upon auth.
+  cache: true
+
+  # MySQL connection details (only used when type: mysql)
+  mysql:
+    host: localhost
+    port: 3306
+    database: spawnauth
+    user: root
+    password: ""
+
+    # Extra MySQL JDBC properties
+    url-parameters: "useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+
+  pool:
+    max-pool-size: 10
+    min-idle: 2
+    connection-timeout-ms: 30000

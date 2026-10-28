@@ -1,0 +1,20 @@
+name: SpawnAuth
+version: '${project.version}'
+main: me.lokspel.spawnauth.SpawnAuth
+api-version: '1.13'
+folia-supported: true
+authors: [ lokspel ]
+description: Optimized authentication limbo and location restoration plugin
+softdepend: [ AuthMe, nLogin, OpeNLogin, LoginSecurity, LoginTo ]
+
+commands:
+  spawnauth:
+    description: SpawnAuth administration command
+    permission: spawnauth.admin
+    aliases: [ sa ]
+    usage: /<command> [reload]
+
+permissions:
+  spawnauth.admin:
+    description: Grants permission to manage SpawnAuth
+    default: op
